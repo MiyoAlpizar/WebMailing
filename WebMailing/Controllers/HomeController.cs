@@ -30,11 +30,19 @@ namespace WebMailing.Controllers
             IEnumerable<User> users;
             if (!string.IsNullOrWhiteSpace(LastName))
             {
-                users = await container.Users.GetList(x => x.LastName.ToLower() == LastName.ToLower(), Ascending , x => x.LastName, x => x.FirstName);
+                users = await container.Users.GetList(x => x.LastName.ToLower() == LastName.ToLower());
             }else
             {
-                users = await container.Users.GetList(null, Ascending ,x => x.LastName, x => x.FirstName);
+                users = await container.Users.GetList();
             }
+            if (Ascending)
+            {
+                users = users.OrderBy(x => x.LastName).ThenBy(x => x.FirstName);
+            }else
+            {
+                users = users.OrderByDescending(x => x.LastName).ThenByDescending(x => x.FirstName);
+            }
+
 
             var ascendingList = new List<AscendingOrder> {
                 new AscendingOrder { Name = "Ascending", IsAscending = true } ,

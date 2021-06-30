@@ -30,7 +30,7 @@ namespace WebMailing.DataAccess
             return await Task.Run(() => context.Users.Find(x => x.Id == id));
         }
 
-        public async Task<IEnumerable<User>> GetList(Func<User, bool> filter = null, bool ascending = true, params Func<User, object>[] orderBy)
+        public async Task<IEnumerable<User>> GetList(Func<User, bool> filter = null)
         {
             IEnumerable<User> users;
             if (filter != null)
@@ -39,23 +39,6 @@ namespace WebMailing.DataAccess
             }else
             {
                 users = context.Users;
-            }
-            if (orderBy != null)
-            {
-                if (ascending)
-                {
-                    foreach (var order in orderBy)
-                    {
-                        users = users.OrderBy(order);
-                    }
-                   
-                }else
-                {
-                    foreach (var order in orderBy)
-                    {
-                        users = users.OrderByDescending(order);
-                    }
-                }
             }
             return await Task.Run(() => users);
         }

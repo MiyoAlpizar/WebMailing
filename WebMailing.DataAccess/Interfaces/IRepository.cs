@@ -22,7 +22,7 @@ namespace WebMailing.DataAccess.Interfaces
         /// <param name="ascending">Order Ascending, if false will order Descending</param>
         /// <param name="orderBy">Params array to order by Properties</param>
         /// <returns>IEnumeralbe<typeparamref name="T"/></returns>
-        Task<IEnumerable<T>> GetList(Func<T, bool> filter = null, bool ascending = true, params Func<T, object>[] orderBy);
+        Task<IEnumerable<T>> GetList(Func<T, bool> filter = null);
         
         /// <summary>
         /// Adds new Entity of type <typeparamref name="T"/> To de DataStore
