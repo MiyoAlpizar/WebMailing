@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebMailing.Models.ViewModels
 {
+    /// <summary>
+    /// Class used to create a new user registration
+    /// </summary>
     public class CreateUser
     {
         [Required]
@@ -17,18 +20,5 @@ namespace WebMailing.Models.ViewModels
         [Display(Name = "E-mail")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Enter a valid E-mail")]
         public string Email { get; set; }
-    }
-
-    public class UserViewModel: CreateUser
-    {
-        public int Id { get; set; }
-
-        [Display(Name = "Full Name")]
-        public string FullName { get 
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
-
     }
 }

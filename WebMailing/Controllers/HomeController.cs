@@ -16,13 +16,11 @@ namespace WebMailing.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IMapper mapper;
         private readonly IWorkContainer container;
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, IWorkContainer container)
+        public HomeController(IMapper mapper, IWorkContainer container)
         {
-            _logger = logger;
             this.mapper = mapper;
             this.container = container;
         }
@@ -38,12 +36,12 @@ namespace WebMailing.Controllers
                 users = await container.Users.GetList(null, Ascending ,x => x.LastName, x => x.FirstName);
             }
 
-            var ascending = new List<AscendingOrder> {
+            var ascendingList = new List<AscendingOrder> {
                 new AscendingOrder { Name = "Ascending", IsAscending = true } ,
                 new AscendingOrder { Name = "Descending", IsAscending = false }
             };
             
-            ViewData["Ascending"] = new SelectList(ascending, "IsAscending", "Name");
+            ViewData["Ascending"] = new SelectList(ascendingList, "IsAscending", "Name");
             
             return View(new IndexViewModel { LastNameFilter = LastName, Users = users, Ascending = Ascending });
         }
@@ -68,16 +66,10 @@ namespace WebMailing.Controllers
             return RedirectToAction(nameof(Confirmation) ,new { @id = newUser.Id });
         }
 
-
         public async Task<IActionResult> Confirmation(int id)
         {
             var user = await container.Users.Get(id);
             return View(mapper.Map<CreateUser>(user));
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

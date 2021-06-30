@@ -19,14 +19,16 @@ namespace WebMailing.DataAccess.Interfaces
         /// Gets a List of <typeparamref name="T"/>
         /// </summary>
         /// <param name="filter">Filter to apply in the search</param>
-        /// <returns></returns>
+        /// <param name="ascending">Order Ascending, if false will order Descending</param>
+        /// <param name="orderBy">Params array to order by Properties</param>
+        /// <returns>IEnumeralbe<typeparamref name="T"/></returns>
         Task<IEnumerable<T>> GetList(Func<T, bool> filter = null, bool ascending = true, params Func<T, object>[] orderBy);
         
         /// <summary>
         /// Adds new Entity of type <typeparamref name="T"/> To de DataStore
         /// </summary>
         /// <param name="entity">Entyty to add</param>
-        /// <returns></returns>
+        /// <returns><typeparamref name="T"/></returns>
         Task<T> Add(T entity);
 
         /// <summary>
