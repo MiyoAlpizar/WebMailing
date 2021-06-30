@@ -37,7 +37,7 @@ namespace WebMailing.Controllers
         [HttpPost, ActionName("Index")]
         public IActionResult FilterIndex(IndexViewModel model)
         {
-            return RedirectToAction(nameof(Index), new { LastName = model.LastNameFilter, Ascending = model.Ascending });
+            return RedirectToAction(nameof(Index), new { LastName = model.LastNameFilter, model.Ascending });
         }
 
         public IActionResult Register()
