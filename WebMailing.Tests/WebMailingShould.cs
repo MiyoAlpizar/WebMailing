@@ -43,8 +43,8 @@ namespace WebMailing.Tests
             await container.Users.Add(user3);
             await container.Users.Add(user4);
 
-            var usersAdded = await container.Users.GetList(x => x.LastName == "White");
-            var users = usersAdded.OrderBy(x => x.LastName).ThenBy(x => x.FirstName).ToList();
+            var usersAdded = await container.Users.GetUsersOrder("White");
+            var users = usersAdded.ToList();
             //Assert
             
             Assert.Equal(fisrtIdExpected, users[0].Id);

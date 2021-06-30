@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace WebMailing.Models
+namespace WebMailing.Models.ViewModels
 {
     public class AscendingOrder
     {
         public string Name { get; set; }
+
         public bool IsAscending { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMailing.DataAccess.Interfaces;
+using WebMailing.Helpers;
 using WebMailing.Models;
 using WebMailing.Models.Entities;
 using WebMailing.Models.ViewModels;
@@ -27,30 +28,9 @@ namespace WebMailing.Controllers
 
         public async Task<IActionResult> Index(string LastName = null, bool Ascending = true)
         {
-            IEnumerable<User> users;
-            if (!string.IsNullOrWhiteSpace(LastName))
-            {
-                users = await container.Users.GetList(x => x.LastName.ToLower() == LastName.ToLower());
-            }else
-            {
-                users = await container.Users.GetList();
-            }
-            if (Ascending)
-            {
-                users = users.OrderBy(x => x.LastName).ThenBy(x => x.FirstName);
-            }else
-            {
-                users = users.OrderByDescending(x => x.LastName).ThenByDescending(x => x.FirstName);
-            }
-
-
-            var ascendingList = new List<AscendingOrder> {
-                new AscendingOrder { Name = "Ascending", IsAscending = true } ,
-                new AscendingOrder { Name = "Descending", IsAscending = false }
-            };
-            
-            ViewData["Ascending"] = new SelectList(ascendingList, "IsAscending", "Name");
-            
+            var users = await container.Users.GetUsersOrder(LastName, Ascending);
+            var ascendingList = Constants.AscendingList;
+            ViewData["Ascending"] = new SelectList(ascendingList, "IsAscending", "Name");   
             return View(new IndexViewModel { LastNameFilter = LastName, Users = users, Ascending = Ascending });
         }
 

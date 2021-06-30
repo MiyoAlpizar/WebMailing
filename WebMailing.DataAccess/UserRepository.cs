@@ -18,6 +18,28 @@ namespace WebMailing.DataAccess
             this.context = context;
         }
 
+        public async Task<IEnumerable<User>> GetUsersOrder(string lastName = "", bool ascending = true)
+        {
+            IEnumerable<User> users;
+            if (!string.IsNullOrWhiteSpace(lastName))
+            {
+                users = await GetList(x => x.LastName.ToLower() == lastName.ToLower());
+            }
+            else
+            {
+                users = await GetList();
+            }
+            if (ascending)
+            {
+                users = users.OrderBy(x => x.LastName).ThenBy(x => x.FirstName);
+            }
+            else
+            {
+                users = users.OrderByDescending(x => x.LastName).ThenByDescending(x => x.FirstName);
+            }
+            return users;
+        }
+
         public async Task<User> Add(User entity)
         {
             entity.Id = GetNextId();
@@ -42,7 +64,6 @@ namespace WebMailing.DataAccess
             }
             return await Task.Run(() => users);
         }
-
         public async Task<bool> Remove(int id)
         {
             var user = await Get(id);
