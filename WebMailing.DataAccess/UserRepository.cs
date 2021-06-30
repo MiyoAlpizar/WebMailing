@@ -49,6 +49,9 @@ namespace WebMailing.DataAccess
 
         private int GetNextId()
         {
+            if (context.Users.Count == 0)
+                return 1;
+
             return context.Users.Max(u => u.Id) + 1;
         }
     }

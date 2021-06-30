@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMailing.DataAccess;
 using WebMailing.DataAccess.Interfaces;
+using WebMailing.Helpers;
 
 namespace WebMailing
 {
@@ -25,6 +27,11 @@ namespace WebMailing
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(provider =>
+               new MapperConfiguration(config => {
+                   config.AddProfile(new AutoMapperProfiles());
+               }).CreateMapper()
+           );
             services.AddSingleton<IApplicationContext, ApplicationContext>();
             services.AddScoped<IWorkContainer, WorkContainer>();
             services.AddControllersWithViews();
