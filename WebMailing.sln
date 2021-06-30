@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMailing", "WebMailing\WebMailing.csproj", "{6E79715B-4211-4DC6-8563-951EAFBFC051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMailing.Models", "WebMailing.Models\WebMailing.Models.csproj", "{C113C117-9499-4BBF-B77F-20EA2CBD145B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMailing.DataAccess", "WebMailing.DataAccess\WebMailing.DataAccess.csproj", "{7C34313E-E615-42B2-860A-482E63924272}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{6E79715B-4211-4DC6-8563-951EAFBFC051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E79715B-4211-4DC6-8563-951EAFBFC051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E79715B-4211-4DC6-8563-951EAFBFC051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C113C117-9499-4BBF-B77F-20EA2CBD145B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C113C117-9499-4BBF-B77F-20EA2CBD145B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C113C117-9499-4BBF-B77F-20EA2CBD145B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C113C117-9499-4BBF-B77F-20EA2CBD145B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C34313E-E615-42B2-860A-482E63924272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C34313E-E615-42B2-860A-482E63924272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C34313E-E615-42B2-860A-482E63924272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C34313E-E615-42B2-860A-482E63924272}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
