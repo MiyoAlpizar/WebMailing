@@ -9,7 +9,7 @@ namespace WebMailing.DataAccess
     {
         
         public IUserRepository Users { get; private set; }
-        public WorkContainer(ApplicationContext context)
+        public WorkContainer(IApplicationContext context)
         {
             Users = new UserRepository(context);
         }

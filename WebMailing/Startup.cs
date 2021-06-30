@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMailing.DataAccess;
+using WebMailing.DataAccess.Interfaces;
 
 namespace WebMailing
 {
@@ -23,6 +25,8 @@ namespace WebMailing
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IApplicationContext, ApplicationContext>();
+            services.AddScoped<IWorkContainer, WorkContainer>();
             services.AddControllersWithViews();
         }
 

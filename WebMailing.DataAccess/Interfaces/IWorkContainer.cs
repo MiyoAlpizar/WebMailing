@@ -6,6 +6,6 @@ namespace WebMailing.DataAccess.Interfaces
 {
     public interface IWorkContainer
     {
-        public IUserRepository Users { get; }
+       // public IUserRepository Users { get; }
     }
 }
