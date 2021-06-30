@@ -12,7 +12,11 @@ namespace WebMailing.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<User, UserViewModel>().ReverseMap();
+           
+
+
+            CreateMap<User, CreateUser>().ReverseMap();
+
         }
     }
 }

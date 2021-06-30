@@ -20,7 +20,7 @@ namespace WebMailing.DataAccess.Interfaces
         /// </summary>
         /// <param name="filter">Filter to apply in the search</param>
         /// <returns></returns>
-        Task<IEnumerable<T>> GetList(Func<T, bool> filter = null);
+        Task<IEnumerable<T>> GetList(Func<T, bool> filter = null, bool ascending = true, params Func<T, object>[] orderBy);
         
         /// <summary>
         /// Adds new Entity of type <typeparamref name="T"/> To de DataStore

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,31 @@ namespace WebMailing.Controllers
             this.container = container;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string LastName = null, bool Ascending = true)
         {
-            return View();
+            IEnumerable<User> users;
+            if (!string.IsNullOrWhiteSpace(LastName))
+            {
+                users = await container.Users.GetList(x => x.LastName.ToLower() == LastName.ToLower(), Ascending , x => x.LastName, x => x.FirstName);
+            }else
+            {
+                users = await container.Users.GetList(null, Ascending ,x => x.LastName, x => x.FirstName);
+            }
+
+            var ascending = new List<AscendingOrder> {
+                new AscendingOrder { Name = "Ascending", IsAscending = true } ,
+                new AscendingOrder { Name = "Descending", IsAscending = false }
+            };
+            
+            ViewData["Ascending"] = new SelectList(ascending, "IsAscending", "Name");
+            
+            return View(new IndexViewModel { LastNameFilter = LastName, Users = users, Ascending = Ascending });
+        }
+
+        [HttpPost, ActionName("Index")]
+        public IActionResult FilterIndex(IndexViewModel model)
+        {
+            return RedirectToAction(nameof(Index), new { LastName = model.LastNameFilter, Ascending = model.Ascending });
         }
 
         public IActionResult Register()
@@ -38,7 +61,7 @@ namespace WebMailing.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(UserViewModel userViewModel)
+        public async Task<IActionResult> Register(CreateUser userViewModel)
         {
             var user = mapper.Map<User>(userViewModel);
             var newUser = await container.Users.Add(user);
@@ -49,7 +72,7 @@ namespace WebMailing.Controllers
         public async Task<IActionResult> Confirmation(int id)
         {
             var user = await container.Users.Get(id);
-            return View(mapper.Map<UserViewModel>(user));
+            return View(mapper.Map<CreateUser>(user));
         }
 
         public IActionResult Privacy()
